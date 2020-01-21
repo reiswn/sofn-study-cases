@@ -50,7 +50,10 @@ pgAdmin 4 is a web based administration tool for the PostgreSQL database.
 
 https://hub.docker.com/r/dpage/pgadmin4
 
-```python
-docker pull dpage/pgadmin4
 ```
+docker pull dpage/pgadmin4
+sudo docker run -p 5050:5050 -e "PGADMIN_DEFAULT_EMAIL=xxxx@xxxx.com" -e "PGADMIN_DEFAULT_PASSWORD=xxxx" dpage/pgadmin4
+```
+
+
 
