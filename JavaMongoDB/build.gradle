@@ -26,4 +26,7 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+    
+    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
+	compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.12.1'
 }
