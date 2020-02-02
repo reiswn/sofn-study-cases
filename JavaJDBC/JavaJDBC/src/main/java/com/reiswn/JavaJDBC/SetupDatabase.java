@@ -20,7 +20,7 @@ public class SetupDatabase {
     	
     	Connection conn = null;
     	
-    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/movies", "root", "soccdc");
+    	conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/movies", "root", "root");
 		System.out.println("Connection ok");
 		
     	

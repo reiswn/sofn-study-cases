@@ -9,7 +9,7 @@ public class ConnectionFactory {
 
 	private final String URL = "jdbc:mysql://localhost:3306/movies";
 	private final String USER = "root";
-	private final String PASS = "soccdc";
+	private final String PASS = "root";
 	private final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 	
 	private Connection createConnection() throws ClassNotFoundException, SQLException {
