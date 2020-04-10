@@ -3,9 +3,202 @@
  */
 package Java8;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 public class Main {
+
+	public static void main(String[] args) throws InterruptedException {
+		System.out.println("Hello 'java8 new features' World!\n");
+
+		// java7thread();
+		// Thread.sleep(100);
+
+		// java8thread();
+		// Thread.sleep(100);
+
+		// newForEach();
+
+		// javaMyInterfaces();
+
+		// java8Stream();
+
+		// java8Options();
+		
+		//java8DateTime();
+		
+		//Nashorn Javascript Engine
+		nashornJsEngine();
+
+	}
+
+	public static void java7thread() {
+
+		Runnable run = new Runnable() {
+
+			@Override
+			public void run() {
+				System.out.println("Java 7 Runnable without lambda\n");
+			}
+		};
+		new Thread(run).start();
+	}
+
+	public static void java8thread() {
+
+		Runnable run = () -> System.out.println("Java 8 Runnable with lambda\n");
+		new Thread(run).start();
+
+		// or
+
+		new Thread(() -> System.out.println("Summarized Java 8 Runnable with lambda\n")).start();
+
+	}
+
+	public static void newForEach() {
+		List<String> strs = Arrays.asList("Willian", "Reis", "Java");
+
+		// Without lambda
+		System.out.println("\nWithout Lambda\n");
+		for (String str : strs) {
+			System.out.println(str);
+		}
+
+		// With Lambda
+		System.out.println("\nWith Lambda\n");
+		strs.forEach((str) -> System.out.println(str)); // with lambda
+		strs.forEach(System.out::println); // with Method Reference
+
+		System.out.println("---------------");
+		List<String> result = strs.stream().filter(str -> str.startsWith("R")).collect(Collectors.toList());
+
+		result.forEach(System.out::println); // with Method Reference
+
+	}
+
+	public static void javaMyInterfaces() {
+
+		// Java 7
+		MyInterface myInterface = new MyInterface() {
+
+			@Override
+			public void print() {
+				System.out.println("Java 7 Implementation - Functional Interface");
+			}
+		};
+
+		myInterface.print();
+
+		// Java 8
+		MyInterface my = () -> System.out.println("Java 8 Implementation - Functional Interface");
+
+		my.print();
+		my.body();
+	}
+
+	public static void java8Stream() {
+
+		List<Integer> numbers = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0);
+		List<String> texts = Arrays.asList("a", "b", "c", "d", "", "", "", "e", "f", "g");
+
+		List<Integer> filteredNumbers = numbers.stream().filter(number -> number != 0).collect(Collectors.toList());
+		filteredNumbers.forEach(System.out::println);
+
+		List<String> filteredTexts = texts.stream().filter(str -> !str.isEmpty()).collect(Collectors.toList());
+
+		filteredTexts.forEach(System.out::println);
+
+		Random hash = new Random();
+		// Select 2 doubles
+		hash.doubles().limit(10).filter(d -> d < 0.3).forEach(System.out::println);
+
+	}
+
+	public static void java8Options() {
+    	List<String> names = new ArrayList<String>();
+
+    	names.add("willian");
+    	names.add("willian2");
+    	names.add("willian3");
+    	
+    	String name = null;
+    	names.add(name);
+    	
+    	names.forEach(System.out::println);
+    	
+    	System.out.println();
+    	System.out.println();
+    	
+    	Optional<String> op = Optional.ofNullable(name);
+    	
+    	op.ifPresent(System.out::println);
+    }
 	
-    public static void main(String[] args) {
-    	System.out.println("Hello World!");
+	public static void java8DateTime() {
+		
+		//Instant
+		Instant now = Instant.now();
+		System.out.println(now);
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		//Duration
+		Instant now2 = Instant.now();
+		Duration duration = Duration.between(now, now2);
+		
+		System.out.println("Duration: "+duration.getSeconds());
+
+		//LocalDate
+		LocalDate local = LocalDate.now();
+		System.out.println("LocalDate: "+local);
+		
+		//Period
+		LocalDate birthday1 = LocalDate.of(1988, 4, 21);
+		LocalDate birthday2 = LocalDate.now();
+		
+		Period period = Period.between(birthday1, birthday2);
+		System.out.printf("My age today: %sY %sM %sD", period.getYears(), period.getMonths(), period.getDays());
+	}
+	
+	public static void nashornJsEngine() {
+		
+		ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+		ScriptEngine nashorn = scriptEngineManager.getEngineByName("nashorn");
+		
+		try {
+			nashorn.eval("print('HELLO WORLD FROM NASHORN')");
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//OR
+		
+		ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+		 
+		try {
+			engine.eval("var greeting='hello world from greeting';" +
+						"print(greeting);" +
+						"greeting");
+		} catch (ScriptException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
