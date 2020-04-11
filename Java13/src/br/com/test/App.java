@@ -21,7 +21,7 @@ public class App {
 		
 		//New Set
 		Set<String> newListSet = Set.of("item1","item2","item3");
-		newListSet.clear();
+		newListSet.toString();
 
 		//.iterate
 		Stream.iterate(1, seed -> seed*2)
@@ -29,7 +29,7 @@ public class App {
 			  .forEach(System.out::println);
 		
 		/*
-		 * String
+		 * String - Text Blocks - JEP 355
 		 */
 
 		//old
@@ -51,7 +51,7 @@ public class App {
 		lines.forEach(System.out::println);
 		
 		/*
-		 * Switch
+		 * Switch - JEP 354
 		 * 
 		 * Java 13, value breaks are superseded by 'yield' statements
     	 * Java 12, switch expression returning value via break
